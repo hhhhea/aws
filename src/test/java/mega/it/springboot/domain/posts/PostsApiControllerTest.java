@@ -2,7 +2,7 @@ package mega.it.springboot.domain.posts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
-import mega.it.springboot.web.dto.PostResponseDto;
+
 import mega.it.springboot.web.dto.PostsSaveRequestDto;
 import mega.it.springboot.web.dto.PostsUpdateRequestDto;
 import org.junit.After;

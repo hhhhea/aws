@@ -3,7 +3,7 @@ package mega.it.springboot.service.posts;
 import lombok.RequiredArgsConstructor;
 import mega.it.springboot.domain.posts.Posts;
 import mega.it.springboot.domain.posts.PostsRepository;
-import mega.it.springboot.web.dto.PostResponseDto;
+import mega.it.springboot.web.dto.PostsResponseDto;
 import mega.it.springboot.web.dto.PostsListResponseDto;
 import mega.it.springboot.web.dto.PostsSaveRequestDto;
 import mega.it.springboot.web.dto.PostsUpdateRequestDto;
@@ -33,10 +33,10 @@ public class PostsService {
     return id;
   }
 
-  public PostResponseDto findById(Long id){
+  public PostsResponseDto findById(Long id){
     Posts entity = postsRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" +id));
-    return new PostResponseDto(entity);
+    return new PostsResponseDto(entity);
   }
 
   @Transactional(readOnly = true)
@@ -44,5 +44,12 @@ public class PostsService {
     return postsRepository.findAllDesc().stream()
             .map(PostsListResponseDto::new)
             .collect(Collectors.toList());
+  }
+
+  @Transactional
+  public void delete(Long id){
+    Posts posts = postsRepository.findById(id)
+            .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
+    postsRepository.delete(posts);
   }
 }
