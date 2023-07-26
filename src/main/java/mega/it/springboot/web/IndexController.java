@@ -1,6 +1,7 @@
 package mega.it.springboot.web;
 
 import lombok.RequiredArgsConstructor;
+import mega.it.springboot.config.auth.LoginUser;
 import mega.it.springboot.config.auth.dto.SessionUser;
 import mega.it.springboot.service.posts.PostsService;
 import mega.it.springboot.web.dto.PostsResponseDto;
@@ -20,9 +21,10 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping(value = "/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("posts",postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        이기능을 @LoginUser SessionUser user 이걸로 대체해서 사용
         if (user != null) {
             model.addAttribute("userName1", user.getName());
         }
